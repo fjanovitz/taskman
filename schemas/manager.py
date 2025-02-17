@@ -1,5 +1,4 @@
 import json
-import uuid
 from user import User
 from task import Task
 
@@ -44,6 +43,9 @@ class Manager:
     def get_user_by_id(self, user_id: str):
         return next((u for u in self.users if u.user_id == user_id), None)
     
+    def get_task_by_id(self, task_id: str):
+        return next((t for t in self.tasks if t.task_id == task_id), None)
+    
     def add_user(self, name: str, email: str):
         user = User(name, email)
         self.users.append(user)
@@ -62,7 +64,7 @@ class Manager:
         self.users.remove(user)
         self.save_users()
         self.save_tasks()
-        return f"User {user.nome} removed successfully!"
+        return f"User {user.name} removed successfully!"
     
     def add_task(self, title: str, description: str, status: str, user_id: str):
         user = self.get_user_by_id(user_id)
@@ -90,6 +92,15 @@ class Manager:
         self.save_tasks()
         return f"Task '{task.title}' removed successfully!"
     
-    def export_tasks_json(self, filename="tasks.json"):
+    def update_task_status(self, task_id: str, new_status: int):
+        valid_statuses = ["Pending", "In Progress", "Completed"]
+        if new_status not in range(3):
+            return "Invalid status! Choose from: 0 - Pending, 1 - In Progress, 2 - Completed."
+        
+        task = self.get_task_by_id(task_id)
+        if not task:
+            return "Task not found!"
+        
+        task.status = valid_statuses[new_status]
         self.save_tasks()
-        return f"Tasks exported to {filename}"
+        return f"Task '{task.title}' status updated to {new_status}!"
