@@ -3,8 +3,8 @@ import uuid
 from user import User
 from task import Task
 
-USER_FILE = "users.json"
-TASK_FILE = "tasks.json"
+USER_FILE = "database/users.json"
+TASK_FILE = "database/tasks.json"
 
 class Manager:
     def __init__(self):
@@ -45,8 +45,7 @@ class Manager:
         return next((u for u in self.users if u.user_id == user_id), None)
     
     def add_user(self, name: str, email: str):
-        user_id = str(uuid.uuid4())
-        user = User(user_id, name, email)
+        user = User(name, email)
         self.users.append(user)
         self.save_users()
         return f"User {name} added successfully!"
@@ -70,8 +69,7 @@ class Manager:
         if not user:
             raise ValueError("User not found!")
         
-        task_id = str(uuid.uuid4())
-        task = Task(task_id, title, description, status, user)
+        task = Task(title, description, status, user)
         self.tasks.append(task)
         self.save_tasks()
         return f"Task '{title}' assigned to {user.nome}."
