@@ -9,8 +9,7 @@ class Manager:
         self.tasks = []
     
     def add_user(self, name: str, email: str):
-        user_id = str(uuid.uuid4())
-        user = User(user_id, name, email)
+        user = User(name, email)
         self.users.append(user)
         return f"User {name} added successfully!"
     
@@ -30,9 +29,8 @@ class Manager:
         user = next((u for u in self.users if u.user_id == user_id), None)
         if not user:
             raise ValueError("User not found!")
-        
-        task_id = str(uuid.uuid4())
-        task = Task(task_id, title, description, status, user)
+    
+        task = Task(title, description, status, user)
         self.tasks.append(task)
         return f"Task '{title}' assigned to {user.nome}."
     

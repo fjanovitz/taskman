@@ -1,8 +1,8 @@
-import json
+import uuid
 
 class User:
-    def __init__(self, user_id: str, name: str, email: str):
-        self.user_id = user_id
+    def __init__(self, name: str, email: str):
+        self.user_id = str(uuid.uuid4())
         self.name = name
         self.email = email
 
