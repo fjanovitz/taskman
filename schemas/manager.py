@@ -47,7 +47,7 @@ class Manager:
         user = User(name, email)
         self.users.append(user)
         self.save_users()
-        return f"User {name} added successfully!"
+        return f"User {user.name} added successfully! ID: {user.user_id}"
     
     def list_users(self):
         return [str(user) for user in self.users]
