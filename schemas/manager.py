@@ -74,7 +74,7 @@ class Manager:
         task = Task(title, description, status, user)
         self.tasks.append(task)
         self.save_tasks()
-        return f"Task '{title}' assigned to {user.nome}."
+        return f"Task '{title}' assigned to {user.name}."
     
     def list_tasks(self):
         return [str(task) for task in self.tasks]
