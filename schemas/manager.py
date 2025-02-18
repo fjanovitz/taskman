@@ -21,13 +21,21 @@ class Manager:
     
     def save_users(self):
         with open(USER_FILE, "w", encoding="utf-8") as f:
-            json.dump([{"user_id": u.user_id, "name": u.name, "email": u.email} for u in self.users], f, indent=4, ensure_ascii=False)
+            json.dump([{"user_id": u.user_id,
+                        "name": u.name,
+                        "email": u.email
+                       } for u in self.users], f, indent=4, ensure_ascii=False)
     
     def load_tasks(self):
         try:
             with open(TASK_FILE, "r", encoding="utf-8") as f:
                 tasks_data = json.load(f)
-                return [Task(task["task_id"], task["title"], task["description"], task["status"], self.get_user_by_id(task["user_id"])) for task in tasks_data]
+                return [Task(task["task_id"], 
+                             task["title"], 
+                             task["description"], 
+                             task["status"], 
+                             self.get_user_by_id(task["user_id"])) 
+                             for task in tasks_data]
         except (FileNotFoundError, json.JSONDecodeError):
             return []
     
@@ -39,7 +47,7 @@ class Manager:
                 "description": t.description,
                 "status": t.status,
                 "user_id": t.user.user_id
-            } for t in self.tasks], f, indent=4, ensure_ascii=False)
+                } for t in self.tasks], f, indent=4, ensure_ascii=False)
     
     def get_user_by_id(self, user_id: str):
         return next((u for u in self.users if u.user_id == user_id), None)
