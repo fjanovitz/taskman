@@ -43,9 +43,6 @@ class Manager:
     def get_user_by_id(self, user_id: str):
         return next((u for u in self.users if u.user_id == user_id), None)
     
-    def get_task_by_id(self, task_id: str):
-        return next((t for t in self.tasks if t.task_id == task_id), None)
-    
     def add_user(self, name: str, email: str):
         user = User(name, email)
         self.users.append(user)
@@ -65,6 +62,9 @@ class Manager:
         self.save_users()
         self.save_tasks()
         return f"User {user.name} removed successfully!"
+    
+    def get_task_by_id(self, task_id: str):
+        return next((t for t in self.tasks if t.task_id == task_id), None)
     
     def add_task(self, title: str, description: str, status: str, user_id: str):
         user = self.get_user_by_id(user_id)
