@@ -1,6 +1,7 @@
 import json
-from user import User
-from task import Task
+import uuid
+from schemas.user import User
+from schemas.task import Task
 
 USER_FILE = "database/users.json"
 TASK_FILE = "database/tasks.json"
@@ -20,7 +21,7 @@ class Manager:
     
     def save_users(self):
         with open(USER_FILE, "w", encoding="utf-8") as f:
-            json.dump([{"user_id": u.user_id, "name": u.nome, "email": u.email} for u in self.users], f, indent=4, ensure_ascii=False)
+            json.dump([{"user_id": u.user_id, "name": u.name, "email": u.email} for u in self.users], f, indent=4, ensure_ascii=False)
     
     def load_tasks(self):
         try:
@@ -44,7 +45,8 @@ class Manager:
         return next((u for u in self.users if u.user_id == user_id), None)
     
     def add_user(self, name: str, email: str):
-        user = User(name, email)
+        user_id = str(uuid.uuid4())
+        user = User(user_id, name, email)
         self.users.append(user)
         self.save_users()
         return f"User {user.name} added successfully! ID: {user.user_id}"
@@ -71,7 +73,8 @@ class Manager:
         if not user:
             raise ValueError("User not found!")
         
-        task = Task(title, description, status, user)
+        task_id = str(uuid.uuid4())
+        task = Task(task_id, title, description, status, user)
         self.tasks.append(task)
         self.save_tasks()
         return f"Task '{title}' assigned to {user.name}."

@@ -1,14 +1,14 @@
 import uuid
-from user import User
+from schemas.user import User
 
 class Task:
     STATUS_OPTIONS = ["Pending", "In Progress", "Completed"]
     
-    def __init__(self, title: str, description: str, status: str, user: User):
+    def __init__(self, task_id: str, title: str, description: str, status: str, user: User):
         if status not in self.STATUS_OPTIONS:
             raise ValueError("Invalid status. Choose from: Pending, In Progress, Completed.")
         
-        self.task_id = str(uuid.uuid4())
+        self.task_id = task_id
         self.title = title
         self.description = description
         self.status = status

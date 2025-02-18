@@ -1,8 +1,8 @@
 import uuid
 
 class User:
-    def __init__(self, name: str, email: str):
-        self.user_id = str(uuid.uuid4())
+    def __init__(self, user_id: str, name: str, email: str):
+        self.user_id = user_id
         self.name = name
         self.email = email
 
