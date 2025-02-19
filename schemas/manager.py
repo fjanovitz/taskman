@@ -15,7 +15,10 @@ class Manager:
         try:
             with open(USER_FILE, "r", encoding="utf-8") as f:
                 users_data = json.load(f)
-                return [User(user["user_id"], user["name"], user["email"]) for user in users_data]
+                return [User(user["user_id"],
+                             user["name"],
+                             user["email"]
+                            ) for user in users_data]
         except (FileNotFoundError, json.JSONDecodeError):
             return []
     

@@ -7,4 +7,4 @@ class User:
         self.email = email
 
     def __str__(self):
-        return f"ID: {self.user_id}, Name: {self.nome}, Email: {self.email}"
+        return f"ID: {self.user_id}, Name: {self.name}, Email: {self.email}"
